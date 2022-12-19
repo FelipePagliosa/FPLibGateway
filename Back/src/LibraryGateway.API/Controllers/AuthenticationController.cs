@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using LibraryGateway.Application.Interfaces;
 using LibraryGateway.Application.Requests.UserRequests;
 using LibraryGateway.Domain.Enums;
+using LibraryGateway.Domain.Exceptions;
 
 namespace LibraryGateway.API.Controllers;
 
@@ -22,6 +23,25 @@ public class AuthenticationController : ControllerBase
         _userService = userService;
         _tokenService = tokenService;
         _config = config;
+    }
+
+    [HttpPost("Register")]
+    public async Task<IActionResult> Post(UserInsertRequest request)
+    {
+        try
+        {
+            await _userService.Add(request);
+            return Ok();
+        }
+        catch (LibraryGatewayExceptions e)
+        {
+            return new JsonResult(new { message = e.Message }) { StatusCode = StatusCodes.Status400BadRequest };
+        }
+        catch (Exception e)
+        {
+            return new JsonResult(new { message = e.Message }) { StatusCode = StatusCodes.Status500InternalServerError };
+        }
+
     }
 
     [HttpPost("Login")]

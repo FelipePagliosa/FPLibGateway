@@ -9,7 +9,7 @@ using LibraryGateway.Domain.Exceptions;
 
 namespace LibraryGateway.API.Controllers;
 
-[Authorize(Roles = nameof(Perfil.Medico))]
+[Authorize(Roles = nameof(Perfil.Administrador))]
 [ApiController]
 [Route("api/[controller]")]
 public class UserController : ControllerBase
@@ -23,35 +23,12 @@ public class UserController : ControllerBase
 
 
     [HttpGet]
-    [Authorize(Roles = nameof(Perfil.Medico))]
     public async Task<IActionResult> Get()
     {
         return Ok(await _userService.GetAll());
     }
 
-    [HttpPost]
-    [Authorize(Roles = nameof(Perfil.Medico))]
-
-    public async Task<IActionResult> Post(UserInsertRequest request)
-    {
-        try
-        {
-            await _userService.Add(request);
-            return Ok();
-        }
-        catch (LibraryGatewayExceptions e)
-        {
-            return new JsonResult(new { message = e.Message }) { StatusCode = StatusCodes.Status400BadRequest };
-        }
-        catch (Exception e)
-        {
-            return new JsonResult(new { message = e.Message }) { StatusCode = StatusCodes.Status500InternalServerError };
-        }
-
-    }
-
     [HttpPut]
-    [Authorize(Roles = nameof(Perfil.Medico))]
     public async Task<IActionResult> Put(UserUpdateRequest request)
     {
         await _userService.Update(request);
@@ -59,7 +36,6 @@ public class UserController : ControllerBase
     }
 
     [HttpPut("changePassword")]
-    [Authorize(Roles = nameof(Perfil.Medico))]
     public async Task<IActionResult> ChangePassword(UserChangePasswordRequest request)
     {
         await _userService.ChangePassword(request);
@@ -67,7 +43,6 @@ public class UserController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    [Authorize(Roles = nameof(Perfil.Medico))]
     public async Task<IActionResult> Delete(int id)
     {
         await _userService.Delete(id);

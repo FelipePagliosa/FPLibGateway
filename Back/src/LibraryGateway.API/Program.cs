@@ -20,6 +20,7 @@ builder.Services.AddDbContext<LibraryGatewayContext>(context => context.UseSqlit
 var mappingConfig = new MapperConfiguration(mc =>
 {
     mc.AddProfile(new UserProfile());
+    mc.AddProfile(new LivroProfile());
 });
 IMapper mapper = mappingConfig.CreateMapper();
 builder.Services.AddSingleton(mapper);
@@ -44,6 +45,11 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 //scopeds
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddHttpClient<ILivroConfigService, LivroConfigService>();
+
+
+// var settings = builder.Configuration.GetSection("LivroServiceSettings").Get<LivroServiceSettings>();
+// builder.Services.AddSingleton(settings);
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
@@ -62,6 +68,7 @@ builder.Services.AddControllers()
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
+    //add livro endpoints to swagger
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "LibraryGateway.API", Version = "v1" });
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
     {
