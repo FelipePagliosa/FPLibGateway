@@ -9,7 +9,7 @@ using LibraryGateway.Application.Requests.LivroRequests;
 
 namespace LibraryGateway.API.Controllers;
 
-// [Authorize(Roles = nameof(Perfil.Administrador))]
+[Authorize(Roles = nameof(Perfil.Administrador))]
 [ApiController]
 [Route("api/[controller]")]
 public class LivroController : ControllerBase
