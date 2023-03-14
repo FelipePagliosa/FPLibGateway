@@ -4,6 +4,6 @@ namespace LibraryGateway.Application.Interfaces;
 
 public interface ITokenService
 {
-    Task<string> CreateToken(User user);
+Task<string> CreateToken(User user);
 
 }

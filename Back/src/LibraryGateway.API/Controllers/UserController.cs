@@ -28,25 +28,25 @@ public class UserController : ControllerBase
         return Ok(await _userService.GetAll());
     }
 
-    [HttpPut]
-    public async Task<IActionResult> Put(UserUpdateRequest request)
-    {
-        await _userService.Update(request);
-        return Ok();
-    }
+    // [HttpPut]
+    // public async Task<IActionResult> Put(UserUpdateRequest request)
+    // {
+    //     await _userService.Update(request);
+    //     return Ok();
+    // }
 
-    [HttpPut("changePassword")]
-    public async Task<IActionResult> ChangePassword(UserChangePasswordRequest request)
-    {
-        await _userService.ChangePassword(request);
-        return Ok();
-    }
+    // [HttpPut("changePassword")]
+    // public async Task<IActionResult> ChangePassword(UserChangePasswordRequest request)
+    // {
+    //     await _userService.ChangePassword(request);
+    //     return Ok();
+    // }
 
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> Delete(int id)
-    {
-        await _userService.Delete(id);
-        return Ok();
-    }
+    // [HttpDelete("{id}")]
+    // public async Task<IActionResult> Delete(int id)
+    // {
+    //     await _userService.Delete(id);
+    //     return Ok();
+    // }
 }
 

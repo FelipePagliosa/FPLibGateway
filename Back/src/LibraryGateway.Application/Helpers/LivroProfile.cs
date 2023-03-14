@@ -10,6 +10,7 @@ public class LivroProfile : Profile
     public LivroProfile()
     {
         CreateMap<PostLivroResponse, LivroInsertRequest>().ReverseMap();
+        CreateMap<PutLivroResponse, LivroUpdateRequest>().ReverseMap();
     }
 }
 
