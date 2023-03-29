@@ -17,8 +17,6 @@ COPY ["LibraryGateway.Infra/LibraryGateway.Infra.csproj", "LibraryGateway.Infra/
 RUN dotnet restore "LibraryGateway.API/LibraryGateway.API.csproj"
 COPY . .
 WORKDIR "/src/"
-RUN export PATH="$PATH:/root/.dotnet/tools" && dotnet tool install -g dotnet-ef && dotnet ef migrations add CreateDatabase --startup-project LibraryGateway.API --project LibraryGateway.Infra -o Migrations && dotnet ef database update --startup-project LibraryGateway.API --project LibraryGateway.Infra
-
 RUN dotnet build "LibraryGateway.API/LibraryGateway.API.csproj" -c Release -o /app/build
 
 FROM build AS publish

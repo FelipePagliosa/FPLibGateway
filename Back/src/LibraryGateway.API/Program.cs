@@ -15,7 +15,7 @@ using Microsoft.OpenApi.Models;
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("Default");
 
-builder.Services.AddDbContext<LibraryGatewayContext>(context => context.UseSqlite(connectionString));
+builder.Services.AddDbContext<LibraryGatewayContext>(context => context.UseSqlServer(connectionString));
 
 var mappingConfig = new MapperConfiguration(mc =>
 {
